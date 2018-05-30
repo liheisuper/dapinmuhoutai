@@ -1,0 +1,151 @@
+ <style>
+#table{ width: 92%;margin-left:4%; border:1px solid #777593;font-size: 0.4em}
+.fixedThead{background-color: #270167;}
+#ontablebody{ overflow: hidden; height: 175px;}
+.fixedThead td {line-height:24px;height: 24px;border-left: 1px solid #777593;overflow: hidden; text-align: center;}
+#ontablebody1 table td{line-height:24px;height: 24px;border-left: 1px solid #777593;overflow: hidden; text-align: center;}
+
+ </style>
+ <div id="table"> 
+    <div>
+      <table width="350"  class="fixedThead"  align="center" cellpadding="0" cellspacing="0">        
+        <tr>
+          <td width="55">品名</td>
+          <td width="30">规格</td>
+          <td width="55">产地</td>
+          <td width="40">数量</td>
+          <td width="30">价格</td>
+          <td width="40">联系人</td>
+          <td width="85">联系电话</td>
+        </tr>
+      </table>
+    </div>
+    <div id="ontablebody" >
+      <div id="ontablebody1" >
+        <table width="350" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="55">莲子莲子</td>
+            <td width="30">选选</td>
+            <td width="55">湖南湖南</td>
+            <td width="40">2000.0</td>
+            <td width="30">16.0</td>
+            <td width="40">李先生</td>
+            <td width="85">11111111111</td>
+          </tr>
+          <tr>
+            <td>党参党参</td>
+            <td>路参</td>
+            <td>甘肃甘肃</td>
+            <td>4000.0</td>
+            <td>52.0</td>
+            <td>徐女士</td>
+            <td>22222222222</td>
+          </tr>
+          <tr >
+            <td>丹参丹参</td>
+            <td>统货</td>
+            <td>河南河南</td>
+            <td>2000.0</td>
+            <td>17.0</td>
+            <td>杨女士</td>
+            <td>33333333333</td>
+          </tr>
+          <tr>
+            <td>白术白术</td>
+            <td>统货</td>
+            <td>安徽安徽</td>
+            <td>20000.0</td>
+            <td>29.0</td>
+            <td>张女士</td>
+            <td>44444444444</td>
+          </tr>
+          <tr>
+            <td>木瓜</td>
+            <td>统货</td>
+            <td>河北</td>
+            <td>3000.0</td>
+            <td>19.0</td>
+            <td>宋先生</td>
+            <td>55555555555</td>
+          </tr>
+          <tr>
+            <td>玄参</td>
+            <td>统片</td>
+            <td>河南</td>
+            <td>2000.0</td>
+            <td>15.5</td>
+            <td>任先生</td>
+            <td>66666666666</td>
+          </tr>
+          <tr>
+            <td>重楼</td>
+            <td>统</td>
+            <td>江西</td>
+            <td>1000.0</td>
+            <td>1200.0</td>
+            <td>张女士</td>
+            <td>77777777777</td>
+          </tr>
+          <tr>
+            <td>丹参</td>
+            <td>统</td>
+            <td>山东</td>
+            <td>6000.0</td>
+            <td>20.5</td>
+            <td>丁女士</td>
+            <td>88888888888</td>
+          </tr>
+          <tr>
+            <td>丹参</td>
+            <td>统</td>
+            <td>山东</td>
+            <td>2000.0</td>
+            <td>20.5</td>
+            <td>吴先生</td>
+            <td>99999999999</td>
+          </tr>
+          <tr>
+            <td>淫羊藿</td>
+            <td>统</td>
+            <td>四川</td>
+            <td>4000.0</td>
+            <td>20.0</td>
+            <td>孙先生</td>
+            <td>10101010101</td>
+          </tr>
+          <tr>
+            <td>南山楂</td>
+            <td>统</td>
+            <td>湖北</td>
+            <td>8000.0</td>
+            <td>7.0</td>
+            <td>王女士</td>
+            <td>11011011011</td>
+          </tr>
+        </table>
+      </div>
+      <div id="ontablebody2"></div>
+    </div>
+    </div>
+<script src="/static/js/jquery.min.js"></script>
+
+<script>
+var speed = 50;  
+ontablebody2.innerHTML = ontablebody1.innerHTML;  
+function Marquee() {  
+    if (ontablebody2.offsetTop-ontablebody.scrollTop <= 0) {  
+          ontablebody.scrollTop -= ontablebody1.offsetHeight;
+    }else {  
+        ontablebody.scrollTop++;
+    }  
+}  
+var MyMar = setInterval(Marquee, speed);  
+demo.onmouseover = function() {  
+    clearInterval(MyMar);  
+}  
+demo.onmouseout = function() {  
+    MyMar = setInterval(Marquee, speed);  
+}  
+
+
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<span>这是一个值</span>
+</body>
+<script src="/static/js/jquery.min.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+	      url:'index.php/index/index/test',
+	      type:'post',
+	      dataType:'json',
+	      data:{value:1},
+	      async:false,
+	      success:function(datas){
+
+	      	
+	      	var data =(new Function("","return "+datas))();
+
+
+	      	// alert(data.next_present);return false;
+	      	console.log(data.next_present);return false;
+	       var str = data.username + data.age + data.job;
+	       $("#result").html(str);
+	      }
+	    })
+	})
+</script>
+
