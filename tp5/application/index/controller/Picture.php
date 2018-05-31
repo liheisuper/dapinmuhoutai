@@ -74,7 +74,6 @@ class Picture extends Controller
     public function variety($status)
     {
         $picture = Db::name('variety')->where('status',$status)->select();
-        // print_r($picture);die;
         if($picture)
         {
             return $this->returnMsg('1000','成功',$picture);
