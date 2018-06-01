@@ -116,6 +116,45 @@ class Picture extends Controller
     }
 
 
+    //市场价格
+    public function bazaar()
+    {
+        $picture = Db::name('market_price')->select();
+        // print_r($picture);die;
+        foreach ($picture as $key=>$value){
+          $id[$key] = $value['statistics_time'];
+        }
+        array_multisort($id,SORT_ASC,$picture);
+
+        foreach($picture as $item) {
+          $date[$item['drug']][$item['agora']][$item['id']]['id'] = $item['id'];
+          $date[$item['drug']][$item['agora']][$item['id']]['statistics_time'] = substr($item['statistics_time'],0,-6);
+          $date[$item['drug']][$item['agora']][$item['id']]['price'] = $item['price'];
+        }
+        foreach ($date as $key => $value) {
+            foreach ($value as $k => $val) {
+                $new = array_values($val);
+                foreach($new as $item) {
+                  $data[$item['statistics_time']][] = $item['price'];
+                }
+                $date[$key][$k] = $data;
+            }
+        }
+        return $this->returnMsg('1000','成功',$date);
+        // $aa = array_values_count($picture);
+        for ($i=0; $i < count($picture); $i++) { 
+            for ($j=1; $j < count($picture); $j++) { 
+                if($picture[$i]['drug']==$picture[$j]['drug']&&$picture[$i]['agora']==$picture[$j]['agora'])
+                {
+                    
+                }
+            }
+        }
+        print_r($date);die;
+
+    }
+
+
     /**
      * @param $error_code int 错误返回码
      * @param $msg  string  错误信息

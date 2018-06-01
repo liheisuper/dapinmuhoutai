@@ -63,15 +63,45 @@ class Te extends Controller
             
             $res=$ExcelToArrary->read($savePath.$file_name,"UTF-8",$file_type);//传参,判断office2007还是office2003
             unset($res[1]);
-           // print_r($res);die;
+           // print_r($this->excelTime($res[2][2]));die;
             /*对生成的数组进行数据库的写入*/
+            // 市场价格
+            $a = 0;
+            $b = 1;
             foreach ($res as $k => $v) {
                 if ($k > 1) {
-                    $data[$k]['drug'] = $v[0];                    
-                    $data[$k]['exponent'] = $v[1];
-                    $data[$k]['status'] = 1;
+                    // $a = 0;
+                    $a++;
+                    $b++;
+                    $data[$k]['drug'] = '第一种药';                    
+                    $data[$k]['agora'] = '泰国';
+                    // echo strlen($a);die;
+                    if($a>=13)
+                    {
+                        $a = 1;
+                    }
+                    if(strlen($a)<=1)
+                    {
+                        $a = '0'."$a";
+                    }
+                    $data[$k]['statistics_time'] = '2018-'.$a.'-01';
+                    // $data[$k]['statistics_time'] = $this->excelTime($v[2]);
+                    $data[$k]['price'] = $b;
+                    // $data[$k]['price'] = $v[3];
+                    $data[$k]['create_time'] = time();
+
                 }
             }
+            // print_r($data);die;
+            // alert($a);die;
+            // 涨跌
+            // foreach ($res as $k => $v) {
+            //     if ($k > 1) {
+            //         $data[$k]['drug'] = $v[0];                    
+            //         $data[$k]['exponent'] = $v[1];
+            //         $data[$k]['status'] = 1;
+            //     }
+            // }
             // 供求信息
             // foreach ($res as $k => $v) {
             //     if ($k > 1) {
@@ -100,7 +130,7 @@ class Te extends Controller
             
             //插入的操作最好放在循环外面
 
-            $result = DB::name('variety')->insertAll($data);
+            $result = DB::name('market_price')->insertAll($data);
             // print_r($result);die;
             
             if($result){
@@ -112,8 +142,23 @@ class Te extends Controller
         }
 
     }
-
-
+        //excel修改时间格式
+        public function excelTime($date, $time = false) {
+            if (function_exists('GregorianToJD')) {
+                if (is_numeric($date)) {
+                    $jd = GregorianToJD(1, 1, 1970);
+                    $gregorian = JDToGregorian($jd + intval($date) - 25569);
+                    $date = explode('/', $gregorian);
+                    $date_str = str_pad($date[2], 4, '0', STR_PAD_LEFT) . "-" . str_pad($date[0], 2, '0', STR_PAD_LEFT) . "-" . str_pad($date[1], 2, '0', STR_PAD_LEFT) . ($time ? " 00:00:00" : '');
+                    return $date_str;
+                }
+            } else {
+                $date = $date > 25568 ? $date + 1 : 25569; /*There was a bug if Converting date before 1-1-1970 (tstamp 0)*/
+                $ofs = (70 * 365 + 17 + 2) * 86400;
+                $date = date("Y-m-d", ($date * 86400) - $ofs) . ($time ? " 00:00:00" : '');
+            }
+            return $date;
+        }
 
     function index()
     {
