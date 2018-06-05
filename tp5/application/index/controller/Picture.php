@@ -7,12 +7,12 @@ class Picture extends Controller
 {
 	public function _initialize()
 	{
-	// 指定允许其他域名访问    
-	header('Access-Control-Allow-Origin:*');    
-	// 响应类型    
-	header('Access-Control-Allow-Methods:POST');    
-	// 响应头设置    
-	header('Access-Control-Allow-Headers:x-requested-with,content-type'); 
+    	// 指定允许其他域名访问    
+    	header('Access-Control-Allow-Origin:*');    
+    	// 响应类型    
+    	header('Access-Control-Allow-Methods:POST');    
+    	// 响应头设置    
+    	header('Access-Control-Allow-Headers:x-requested-with,content-type'); 
 	}
 	// 中药材示范区
     public function demonstration()
@@ -127,9 +127,9 @@ class Picture extends Controller
         array_multisort($id,SORT_ASC,$picture);
 
         foreach($picture as $item) {
-          $date[$item['drug']][$item['agora']][$item['id']]['id'] = $item['id'];
+          $date[$item['drug']][$item['agora']][$item['id']]['id']              = $item['id'];
           $date[$item['drug']][$item['agora']][$item['id']]['statistics_time'] = substr($item['statistics_time'],0,-6);
-          $date[$item['drug']][$item['agora']][$item['id']]['price'] = $item['price'];
+          $date[$item['drug']][$item['agora']][$item['id']]['price']           = $item['price'];
         }
         foreach ($date as $key => $value) {
             foreach ($value as $k => $val) {
@@ -138,19 +138,10 @@ class Picture extends Controller
                   $data[$item['statistics_time']][] = $item['price'];
                 }
                 $date[$key][$k] = $data;
+                unset($data);
             }
         }
         return $this->returnMsg('1000','成功',$date);
-        // $aa = array_values_count($picture);
-        for ($i=0; $i < count($picture); $i++) { 
-            for ($j=1; $j < count($picture); $j++) { 
-                if($picture[$i]['drug']==$picture[$j]['drug']&&$picture[$i]['agora']==$picture[$j]['agora'])
-                {
-                    
-                }
-            }
-        }
-        print_r($date);die;
 
     }
 
